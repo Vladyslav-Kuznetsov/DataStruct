@@ -52,15 +52,21 @@ namespace DataStruct
 
         public void Insert(int index, object obj)
         {
-            if (index < 0 || index >= _index)
+            if (index < 0 || index > _index)
             {
                 throw new IndexOutOfRangeException($"Index: {index}, Size: {_index}");
             }
 
-            Resize();
+            if (_index == _list.Length)
+            {
+                _capacity *= 2;
+                Resize();
+            }
 
-            for (var i = _index; i > index; i--)
+            for (int i = _index; i > index; i--)
+            {
                 _list[i] = _list[i - 1];
+            } 
 
             _list[index] = obj;
             _index++;
@@ -68,7 +74,7 @@ namespace DataStruct
 
         public void Remove(object obj)
         {
-            int index = Array.IndexOf(_list, obj, 0, _index);
+            int index = IndexOf(obj);
 
             if (index < 0)
             {
@@ -81,13 +87,22 @@ namespace DataStruct
             }
 
             _index--;
-
         }
 
-        //public void RemoveAt(int index)
-        //{
+        public void RemoveAt(int index)
+        {
+            if (index < 0)
+            {
+                return;
+            }
 
-        //}
+            for (int i = index; i < _index - 1; i++)
+            {
+                _list[i] = _list[i + 1];
+            }
+
+            _index--;
+        }
 
         public void Clear()
         {
@@ -107,6 +122,7 @@ namespace DataStruct
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -119,6 +135,7 @@ namespace DataStruct
                     return i;
                 }
             }
+
             return -1;
         }
 
@@ -151,6 +168,5 @@ namespace DataStruct
                 _list[_index - 1 - i] = temp;
             }
         }
-
     }
 }
