@@ -42,14 +42,29 @@ namespace DataStruct.ConsoleApp
             //}
             //Console.WriteLine(a.Count);
 
-            Queue a = new Queue();
-            a.Enqueue(1);
-            a.Enqueue(2);
-            a.Enqueue(3);
-            a.Dequeue();
-            
-            Console.WriteLine(a.Contains(50));
+            //Queue a = new Queue();
+            //a.Enqueue(1);
+            //a.Enqueue(2);
+            //a.Enqueue(3);
+            //a.Dequeue();
 
+            //Console.WriteLine(a.Contains(50));
+
+            //var b = a.ToArray();
+
+            //foreach (var c in b)
+            //{
+            //    Console.WriteLine(c);
+            //}
+            //Console.WriteLine();
+            //Console.WriteLine(a.Peek());
+
+            Stack a = new Stack();
+            a.Push(1);
+            a.Push(2);
+            a.Push(3);
+            Console.WriteLine(a.Pop());
+            Console.WriteLine(a.Peek());
             var b = a.ToArray();
 
             foreach (var c in b)
@@ -57,7 +72,7 @@ namespace DataStruct.ConsoleApp
                 Console.WriteLine(c);
             }
             Console.WriteLine();
-            Console.WriteLine(a.Peek());
+            Console.WriteLine(a.Count);
 
             Console.ReadLine();
         }
