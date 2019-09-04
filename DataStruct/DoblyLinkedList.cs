@@ -128,13 +128,11 @@ namespace DataStruct
     {
         public DoublyNode Next { get; set; }
         public DoublyNode Previous { get; set; }
-
         public object Data { get; set; }
 
         public DoublyNode(object data)
         {
             Data = data;
         }
-
     }
 }
