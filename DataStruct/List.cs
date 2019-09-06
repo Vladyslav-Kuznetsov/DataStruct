@@ -2,9 +2,9 @@
 
 namespace DataStruct
 {
-    public class List
+    public class List<T>
     {
-        private object[] _list;
+        private T[] _list;
         private int _index;
         private int _capacity = 4;
         public int Count { get { return _index; } }
@@ -12,14 +12,14 @@ namespace DataStruct
         public List(int capacity)
         {
             _capacity = capacity;
-            _list = new object[_capacity];
+            _list = new T[_capacity];
         }
         public List()
         {
             InitArray();
         }
 
-        public void Add(object obj)
+        public void Add(T obj)
         {
             if (_index == _capacity)
             {
@@ -33,8 +33,8 @@ namespace DataStruct
 
         public void Resize()
         {
-            object[] tempArray = _list;
-            _list = new object[_capacity];
+            T[] tempArray = _list;
+            _list = new T[_capacity];
 
             if (tempArray != null)
             {
@@ -47,10 +47,10 @@ namespace DataStruct
 
         private void InitArray()
         {
-            _list = new object[_capacity];
+            _list = new T[_capacity];
         }
 
-        public void Insert(int index, object obj)
+        public void Insert(int index, T obj)
         {
             if (index < 0 || index > _index)
             {
@@ -66,13 +66,13 @@ namespace DataStruct
             for (int i = _index; i > index; i--)
             {
                 _list[i] = _list[i - 1];
-            } 
+            }
 
             _list[index] = obj;
             _index++;
         }
 
-        public void Remove(object obj)
+        public void Remove(T obj)
         {
             int index = IndexOf(obj);
 
@@ -113,7 +113,7 @@ namespace DataStruct
             }
         }
 
-        public bool Contains(object obj)
+        public bool Contains(T obj)
         {
             for (int i = 0; i < _index; i++)
             {
@@ -126,7 +126,7 @@ namespace DataStruct
             return false;
         }
 
-        public int IndexOf(object obj)
+        public int IndexOf(T obj)
         {
             for (int i = 0; i < _index; i++)
             {
@@ -139,9 +139,9 @@ namespace DataStruct
             return -1;
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] result = new object[Count];
+            T[] result = new T[Count];
 
             for (int i = 0; i < Count; i++)
             {
@@ -151,7 +151,7 @@ namespace DataStruct
             return result;
         }
 
-        public object this[int key]
+        public T this[int key]
         {
             get
             {
@@ -163,7 +163,7 @@ namespace DataStruct
         {
             for (int i = 0; i < _index / 2; i++)
             {
-                object temp = _list[i];
+                T temp = _list[i];
                 _list[i] = _list[_index - 1 - i];
                 _list[_index - 1 - i] = temp;
             }
