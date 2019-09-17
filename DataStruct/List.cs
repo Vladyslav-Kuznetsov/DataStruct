@@ -19,6 +19,16 @@ namespace DataStruct
             InitArray();
         }
 
+        public T First ()
+        {
+            return _list[0];
+        }
+
+        public T Last()
+        {
+            return _list[Count - 1];
+        }
+
         public void Add(T obj)
         {
             if (_index == _capacity)
