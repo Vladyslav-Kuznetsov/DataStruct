@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DataStruct
 {
-    public class List<T>
+    public class List<T> : IEnumerable<T>
     {
         private T[] _list;
         private int _index;
@@ -19,7 +21,7 @@ namespace DataStruct
             InitArray();
         }
 
-        public T First ()
+        public T First()
         {
             return _list[0];
         }
@@ -176,6 +178,58 @@ namespace DataStruct
                 T temp = _list[i];
                 _list[i] = _list[_index - 1 - i];
                 _list[_index - 1 - i] = temp;
+            }
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new ListIterator(this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        private class ListIterator: IEnumerator<T>
+        {
+            private int _index = -1;
+            private List<T> _items;
+
+            public ListIterator(List<T> items)
+            {
+                _items = items;
+            }
+            public T Current
+            {
+                get
+                {
+                    if (_index == -1 || _index >= _items.Count)
+                        throw new InvalidOperationException();
+                    return _items[_index];
+                }
+            }
+
+            object IEnumerator.Current => throw new NotImplementedException();
+
+            public void Dispose() { }
+
+            public bool MoveNext()
+            {
+                if (_index < _items.Count- 1)
+                {
+                    _index++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public void Reset()
+            {
+                _index = -1;
             }
         }
     }
