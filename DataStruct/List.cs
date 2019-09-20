@@ -40,7 +40,14 @@ namespace DataStruct
             }
             _list[_index] = obj;
             _index++;
+        }
 
+        public void AddRange(List<T> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                Add(list[i]);
+            }
         }
 
         public void Resize()
@@ -191,7 +198,7 @@ namespace DataStruct
             return GetEnumerator();
         }
 
-        private class ListIterator: IEnumerator<T>
+        private class ListIterator : IEnumerator<T>
         {
             private int _index = -1;
             private List<T> _items;
@@ -216,7 +223,7 @@ namespace DataStruct
 
             public bool MoveNext()
             {
-                if (_index < _items.Count- 1)
+                if (_index < _items.Count - 1)
                 {
                     _index++;
                     return true;

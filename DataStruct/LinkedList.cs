@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DataStruct
 {
-    public class LinkedList
+    public class LinkedList<T> : IEnumerable<T>
     {
-        public Node First { get; private set; }
-        public Node Last { get; private set; }
+        public Node<T> First { get; private set; }
+        public Node<T> Last { get; private set; }
         public int Count { get; private set; }
 
-        public void Add(object obj)
+        public void Add(T obj)
         {
-            Node node = new Node(obj);
+            Node<T> node = new Node<T>(obj);
 
             if (First == null)
             {
@@ -25,9 +27,9 @@ namespace DataStruct
             Count++;
         }
 
-        public void AddFirst(object obj)
+        public void AddFirst(T obj)
         {
-            Node node = new Node(obj);
+            Node<T> node = new Node<T>(obj);
             node.Next = First;
             First = node;
 
@@ -39,10 +41,10 @@ namespace DataStruct
             Count++;
         }
 
-        public bool Remove(object obj)
+        public bool Remove(T obj)
         {
-            Node current = First;
-            Node previous = null;
+            Node<T> current = First;
+            Node<T> previous = null;
 
             while (current != null)
             {
@@ -84,11 +86,11 @@ namespace DataStruct
             Count = 0;
         }
 
-        public void Insert(Node node, object obj)
+        public void Insert(Node<T> node, T obj)
         {
 
-            Node current = First;
-            Node newNode = new Node(obj);
+            Node<T> current = First;
+            Node<T> newNode = new Node<T>(obj);
 
             while (current != null)
             {
@@ -103,9 +105,9 @@ namespace DataStruct
             }
         }
 
-        public bool Contains(object obj)
+        public bool Contains(T obj)
         {
-            Node current = First;
+            Node<T> current = First;
 
             while (current != null)
             {
@@ -119,10 +121,10 @@ namespace DataStruct
             return false;
         }
 
-        public object[] ToArray()
+        public T[] ToArray()
         {
-            object[] result = new object[Count];
-            Node current = First;
+            T[] result = new T[Count];
+            Node<T> current = First;
 
             for(int i = 0; i < Count;i++)
             {
@@ -132,14 +134,27 @@ namespace DataStruct
 
             return result;
         }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (Node<T> current = First; current != null;current = current.Next)
+            {
+                yield return current.Data;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 
-    public class Node
+    public class Node<T>
     {
-        public Node Next { get; set; }
-        public object Data { get; set; }
+        public Node<T> Next { get; set; }
+        public T Data { get; set; }
 
-        public Node(object data)
+        public Node(T data)
         {
             Data = data;
         }
